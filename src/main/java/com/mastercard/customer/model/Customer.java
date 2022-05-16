@@ -15,7 +15,7 @@ public class Customer {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long customerId;
 	
 	@Column
 	private String name;
@@ -26,12 +26,12 @@ public class Customer {
 	@OneToMany(mappedBy="customer")
 	private List<Address> addresses;
 
-	public Long getId() {
-		return id;
+	public Long getCustomerId() {
+		return customerId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCustomerId(Long customerId) {
+		this.customerId = customerId;
 	}
 
 	public String getName() {
@@ -60,7 +60,7 @@ public class Customer {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(addresses, id, lastName, name);
+		return Objects.hash(addresses, customerId, lastName, name);
 	}
 
 	@Override
@@ -72,12 +72,12 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		return Objects.equals(addresses, other.addresses) && Objects.equals(id, other.id)
+		return Objects.equals(addresses, other.addresses) && Objects.equals(customerId, other.customerId)
 				&& Objects.equals(lastName, other.lastName) && Objects.equals(name, other.name);
 	}
 
 	@Override
 	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", lastName=" + lastName + ", addresses=" + addresses + "]";
+		return "Customer [customerId=" + customerId + ", name=" + name + ", lastName=" + lastName + ", addresses=" + addresses + "]";
 	}
 }

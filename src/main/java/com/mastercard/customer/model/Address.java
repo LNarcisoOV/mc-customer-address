@@ -15,10 +15,10 @@ public class Address {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
+	private Long addressId;
 	
 	@ManyToOne
-	@JoinColumn(name="id", nullable=false)
+	@JoinColumn(name="customerId", nullable=false)
 	private Customer customer;
 	
 	@Column
@@ -36,12 +36,12 @@ public class Address {
 	@Column
 	private String zipCode;
 
-	public Long getId() {
-		return id;
+	public Long getAddressId() {
+		return addressId;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setAddressId(Long addressId) {
+		this.addressId = addressId;
 	}
 
 	public Customer getCustomer() {
@@ -94,7 +94,7 @@ public class Address {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(city, customer, id, state, street, type, zipCode);
+		return Objects.hash(city, customer, addressId, state, street, type, zipCode);
 	}
 
 	@Override
@@ -107,13 +107,13 @@ public class Address {
 			return false;
 		Address other = (Address) obj;
 		return Objects.equals(city, other.city) && Objects.equals(customer, other.customer)
-				&& Objects.equals(id, other.id) && Objects.equals(state, other.state)
+				&& Objects.equals(addressId, other.addressId) && Objects.equals(state, other.state)
 				&& Objects.equals(street, other.street) && type == other.type && Objects.equals(zipCode, other.zipCode);
 	}
 
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", customer=" + customer + ", type=" + type + ", street=" + street + ", city="
+		return "Address [addressId=" + addressId + ", customer=" + customer + ", type=" + type + ", street=" + street + ", city="
 				+ city + ", state=" + state + ", zipCode=" + zipCode + "]";
 	}
 	

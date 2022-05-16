@@ -30,7 +30,4 @@ public class CustomerServiceImpl implements CustomerService {
 		Customer customerDB = customerDao.save(customer);
 		return Optional.of(customerDB);
 	}
-	
-	
-
 }

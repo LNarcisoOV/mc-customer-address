@@ -51,8 +51,6 @@ public class AddressServiceImplTest {
     @Test 
     public void testSaveAddressToNonExistingCustomer() {
         given(customerService.getById(1L)).willReturn(Optional.empty());
-        given(zipValidatorClient.validateZipCode(anyString())).willReturn(Boolean.TRUE);
-        given(modelMapper.map(Mockito.any(), Mockito.any())).willReturn(address1());
         
         Optional<Address> optAddress = addressServiceImpl.save(1L, any(AddressDTO.class));
         assertTrue(optAddress.isEmpty());

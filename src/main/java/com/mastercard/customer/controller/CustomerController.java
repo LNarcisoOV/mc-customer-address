@@ -83,7 +83,7 @@ public class CustomerController {
 				return new ResponseEntity<AddressDTO>(HttpStatus.INTERNAL_SERVER_ERROR); 
 			}
 		} catch(RuntimeException runtimeException) {
-			throw new RuntimeException("An exception occurs;");
+			throw new RuntimeException(runtimeException.getMessage());
 		}
 	}
 

@@ -10,4 +10,6 @@ public interface AddressService {
 	List<Address> getById(Long customerId);
 
 	Optional<Address> save(Long customerId, AddressDTO addressDTO);
+	
+	String getZipValidatorPort();
 }

@@ -26,7 +26,7 @@ public class AddressServiceImpl implements AddressService {
 
     @Autowired
     private ZipValidatorClient zipValidatorClient;
-
+    
     @Override
     public List<Address> getById(Long customerId) {
         Optional<Customer> customerOpt = customerService.getById(customerId);
@@ -53,6 +53,11 @@ public class AddressServiceImpl implements AddressService {
         } else {
             return Optional.empty();
         }
+    }
+    
+    @Override
+    public String getZipValidatorPort() {
+        return zipValidatorClient.getPort();
     }
 
 }

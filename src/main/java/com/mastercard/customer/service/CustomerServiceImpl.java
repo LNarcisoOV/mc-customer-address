@@ -1,11 +1,9 @@
 package com.mastercard.customer.service;
 
 import java.util.Optional;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.mastercard.customer.dao.CustomerDao;
 import com.mastercard.customer.model.Customer;
 import com.mastercard.customer.model.dto.CustomerDTO;

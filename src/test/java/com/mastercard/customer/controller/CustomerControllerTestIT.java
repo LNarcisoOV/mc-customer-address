@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import com.mastercard.customer.model.Address;
 import com.mastercard.customer.model.Customer;
-import com.mastercard.customer.model.dto.AddressDTO;
 import com.mastercard.customer.model.dto.CustomerDTO;
 import com.mastercard.customer.service.AddressService;
 import com.mastercard.customer.service.CustomerService;
@@ -114,33 +112,6 @@ public class CustomerControllerTestIT {
     			+ "\"lastName\"" + " : " +  "\"Doe\"" + "}";
     }
     
-    private List<Address> addresses1() {
-    	Address address1 = new Address();
-    	address1.setType("BILLING");
-    	address1.setCity("Albuquerque");
-    	address1.setState("New Mexico");
-    	address1.setStreet("Negro Arroios");
-    	address1.setCustomer(customer1().get());
-    	
-    	List<Address> addresses = new ArrayList<>();
-    	addresses.add(address1);
-    	
-    	return addresses;
-    }
-    
-    private List<AddressDTO> addresses1DTO() {
-    	AddressDTO address1 = new AddressDTO();
-    	address1.setType("BILLING");
-    	address1.setCity("Albuquerque");
-    	address1.setState("New Mexico");
-    	address1.setStreet("Negro Arroios");
-    	
-    	List<AddressDTO> addresses = new ArrayList<>();
-    	addresses.add(address1);
-    	
-    	return addresses;
-    }
-    
     private String address1DTOJSon() {
     	return "{" + "\"type\"" + " : " +  "\"BILLING\"" + ", "
     			+ "\"city\"" + " : " +  "\"Albuquerque\"" 
@@ -148,59 +119,4 @@ public class CustomerControllerTestIT {
     			+ "\"street\"" + " : " +  "\"Negro Arroios\"" +
     			"}";
     }
-    
-    private List<Address> addresses2() {
-    	Address address1 = new Address();
-    	address1.setType("BILLING");
-    	address1.setCity("Albuquerque");
-    	address1.setState("New Mexico");
-    	address1.setStreet("Negro Arroios");
-    	address1.setCustomer(customer1().get());
-    	
-    	Address address2 = new Address();
-    	address2.setType("SHIPPING");
-    	address2.setCity("Boston");
-    	address2.setState("Massachusetts");
-    	address2.setStreet("last street");
-    	address2.setCustomer(customer1().get());
-    	
-    	List<Address> addresses = new ArrayList<>();
-    	addresses.add(address1);
-    	addresses.add(address2);
-    	return addresses;
-    }
-    
-    private List<AddressDTO> addresses2DTO() {
-    	AddressDTO address1 = new AddressDTO();
-    	address1.setType("BILLING");
-    	address1.setCity("Albuquerque");
-    	address1.setState("New Mexico");
-    	address1.setStreet("Negro Arroios");
-    	
-    	AddressDTO address2 = new AddressDTO();
-    	address2.setType("SHIPPING");
-    	address2.setCity("Boston");
-    	address2.setState("Massachusetts");
-    	address2.setStreet("last street");
-    	
-    	List<AddressDTO> addresses = new ArrayList<>();
-    	addresses.add(address1);
-    	addresses.add(address2);
-    	return addresses;
-    }
-    
-    private String address2DTOJSon() {
-    	return "[{" + "\"type\"" + " : " +  "\"BILLING\"" + ", "
-    			+ "\"city\"" + " : " +  "\"Albuquerque\"" 
-    			+ "\"state\"" + " : " +  "\"New Mexico\"" 
-    			+ "\"street\"" + " : " +  "\"Negro Arroios\"" +
-    			"},"
-    			+
-    			"{" + "\"type\"" + " : " +  "\"SHIPPING\"" + ", "
-    			+ "\"city\"" + " : " +  "\"Boston\"" 
-    			+ "\"state\"" + " : " +  "\"Massachusetts\"" 
-    			+ "\"street\"" + " : " +  "\"last street\"" +
-    			"}]";
-    }
-    
 }

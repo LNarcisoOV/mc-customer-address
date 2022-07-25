@@ -6,11 +6,13 @@ import java.util.Optional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.google.gson.Gson;
 import com.mastercard.customer.client.ZipValidatorClient;
 import com.mastercard.customer.dao.AddressDao;
 import com.mastercard.customer.model.Address;
 import com.mastercard.customer.model.Customer;
 import com.mastercard.customer.model.dto.AddressDTO;
+import com.mastercard.customer.util.Constants;
 
 @Service
 public class AddressServiceImpl implements AddressService {
@@ -26,6 +28,9 @@ public class AddressServiceImpl implements AddressService {
 
     @Autowired
     private ZipValidatorClient zipValidatorClient;
+    
+    @Autowired
+    private KafkaService kafkaService;
     
     @Override
     public List<Address> getById(Long customerId) {
@@ -44,6 +49,7 @@ public class AddressServiceImpl implements AddressService {
             Boolean isZipCodeValid = zipValidatorClient.validateZipCode(address.getZipCode());
 
             if (isZipCodeValid) {
+                kafkaService.sendMessage(Constants.ADDRESS_TOPIC_NAME, new Gson().toJson(address));
                 address.setCustomer(customerOpt.get());
                 Address addressDB = addressDao.save(address);
                 return Optional.of(addressDB);

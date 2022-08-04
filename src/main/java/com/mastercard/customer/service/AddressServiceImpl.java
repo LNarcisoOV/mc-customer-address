@@ -49,9 +49,13 @@ public class AddressServiceImpl implements AddressService {
             Boolean isZipCodeValid = zipValidatorClient.validateZipCode(address.getZipCode());
 
             if (isZipCodeValid) {
-                kafkaService.sendMessage(Constants.ADDRESS_TOPIC_NAME, new Gson().toJson(address));
                 address.setCustomer(customerOpt.get());
                 Address addressDB = addressDao.save(address);
+                
+                Address kafkaAddress = addressDB;
+                kafkaAddress.setCustomer(null);                
+                kafkaService.sendMessage(Constants.ADDRESS_TOPIC_NAME, new Gson().toJson(kafkaAddress));
+                
                 return Optional.of(addressDB);
             } else {
                 throw new RuntimeException("Invalid zip code.");

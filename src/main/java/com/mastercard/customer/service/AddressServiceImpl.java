@@ -34,23 +34,23 @@ public class AddressServiceImpl implements AddressService {
     
     @Override
     public List<Address> getById(Long customerId) {
-        Optional<Customer> customerOpt = customerService.getById(customerId);
+        final Optional<Customer> customerOpt = customerService.getById(customerId);
         return customerOpt.isPresent() ? addressDao.findBy(customerOpt.get())
                 : Collections.emptyList();
     }
 
     @Override
     public Optional<Address> save(Long customerId, AddressDTO addressDTO) {
-        Optional<Customer> customerOpt = customerService.getById(customerId);
+        final Optional<Customer> customerOpt = customerService.getById(customerId);
 
         if (customerOpt.isPresent()) {
-            Address address = modelMapper.map(addressDTO, Address.class);
+            final Address address = modelMapper.map(addressDTO, Address.class);
 
-            Boolean isZipCodeValid = zipValidatorClient.validateZipCode(address.getZipCode());
+            final Boolean isZipCodeValid = zipValidatorClient.validateZipCode(address.getZipCode());
 
             if (isZipCodeValid) {
                 address.setCustomer(customerOpt.get());
-                Address addressDB = addressDao.save(address);
+                final Address addressDB = addressDao.save(address);
                 
                 Address kafkaAddress = addressDB;
                 kafkaAddress.setCustomer(null);                

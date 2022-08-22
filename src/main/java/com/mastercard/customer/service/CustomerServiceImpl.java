@@ -29,8 +29,8 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public Optional<Customer> save(CustomerDTO customerDTO) {
-		Customer customer = modelMapper.map(customerDTO, Customer.class);
-		Customer customerDB = customerDao.save(customer);
+		final Customer customer = modelMapper.map(customerDTO, Customer.class);
+		final Customer customerDB = customerDao.save(customer);
 		kafkaService.sendMessage(Constants.CUSTOMER_TOPIC_NAME, new Gson().toJson(customerDB));
 		return Optional.of(customerDB);
 	}
